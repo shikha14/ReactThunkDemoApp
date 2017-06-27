@@ -1,6 +1,7 @@
 /**
  * Created by Shikha on 27/06/17.
  */
+import axios from 'axios';
 
 // Action creators
 export function addReposAction(repos) {
@@ -18,29 +19,31 @@ export function loadingChangedAction(isLoading) {
 };
 
 
-// returns a function and will be called in the Redux-Thunk middleware
-export function loadReposAction() {
-    return function(dispatch, getState) {
-        var state = getState();
-        var url = "https://api.github.com/users/" + state.user + "/repos";
 
+
+export function loadReposAction(name) {
+    return function(dispatch) {
+
+        var url = "https://api.github.com/users/" + name + "/repos";
+        console.log("url",url)
         dispatch(loadingChangedAction(true));
 
-        return axios.get(url)
-            .then(function(result) {
+        return axios({
+            method:'get',
+            url:url
+        }).then(function(result) {
                 dispatch(loadingChangedAction(false));
+             console.log("result",result);
+                return result.data;
 
-                if (result.status === 200) {
-                    return result.json();
-                }
-
-                throw "request failed";
             })
             .then(function(jsonResult) {
+                console.log("result",jsonResult);
                 dispatch(addReposAction(jsonResult));
             })
             .catch(function(err) {
-                sweetAlert("Oops...", "Couldn't fetch repos for user: " + state.user, "error");
+                console.log("err",err);
+                //sweetAlert("Oops...", "Couldn't fetch repos for user: " + state.user, "error");
             });
     }
-};
+}

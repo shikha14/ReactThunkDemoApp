@@ -16,13 +16,15 @@
   "dependencies": {
     "axios": "^0.16.2",
     "bootstrap-sweetalert": "^1.0.1",
+    "prop-types": "^15.5.10",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-redux": "^5.0.5",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.6",
     "redux-promise-middleware": "^4.3.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
